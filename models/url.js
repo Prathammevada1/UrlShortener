@@ -17,5 +17,5 @@ const urlSchema=new mongoose.Schema({
 
 
 const URL = mongoose.model("URL",urlSchema);
-modules.export = URL;
+module.exports = URL;
 

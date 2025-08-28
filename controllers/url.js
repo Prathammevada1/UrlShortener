@@ -1,4 +1,24 @@
-async function handleGenerateNewShortUrl()
+const { nanoid } = require('nanoid');
+const URL = require('../models/url')
+nanoid(8); 
+
+async function handleGenerateNewShortUrl(req,res)
 {
-  
+  const body=req.body;
+  console.log(body);
+  if(!body)
+    return res.status(400).json({error:"Body is undefined"});
+  if(!body.url)
+    return res.status(400).json({error:"Please enter a url"});
+
+  const shortID =nanoid(8);
+  await URL.create({
+    shortId:shortID,
+    redirectURL:body.url,
+    visitHistory:[],
+  })
+  return res.status(200).json({id:shortID})
+}
+module.exports  = {
+  handleGenerateNewShortUrl
 }
